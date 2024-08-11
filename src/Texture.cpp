@@ -3,6 +3,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+using namespace std;
+
 Texture::Texture(const char* texturePath) {
 
     glGenTextures(1, &ID);
@@ -30,15 +32,45 @@ Texture::Texture(const char* texturePath) {
     }
     else
     {
-        std::cout << "Failed to load texture" << std::endl;
+        cout << "Failed to load texture: " << texturePath << endl;
     }
     stbi_image_free(data);
 }
 
-
 void Texture::use() {
 
-    //glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
     glBindTexture(GL_TEXTURE_2D, ID);
 
+}
+
+void Texture::activateTextureUnit(int unit) {
+
+    glActiveTexture(GL_TEXTURE0 + unit);
+
+}
+
+void Texture::setWrapMode(GLenum wrapMode) {
+
+    glBindTexture(GL_TEXTURE_2D, ID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
+}
+
+void Texture::setMinFilteringMode(GLenum minFilterMode) {
+
+    glBindTexture(GL_TEXTURE_2D, ID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilterMode);
+}
+
+void Texture::setMagFilteringMode(GLenum magFilterMode) {
+
+    glBindTexture(GL_TEXTURE_2D, ID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilterMode);
+}
+
+void Texture::setFilteringMode(GLenum minFilterMode, GLenum magFilterMode) {
+
+    glBindTexture(GL_TEXTURE_2D, ID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilterMode);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilterMode);
 }

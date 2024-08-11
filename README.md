@@ -3,9 +3,8 @@
 Ce projet utilise "Makefile" pour build et clean
 
 lien d'installation Windows :
-https://gnuwin32.sourceforge.net/packages/make.htm
+<https://gnuwin32.sourceforge.net/packages/make.htm>
 (cliquez sur "Setup program")
-
 
 Commandes :
 
